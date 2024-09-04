@@ -51,6 +51,31 @@ class OpenAIClient:
             print(f"Error occurred: {e}, retrying...")
             raise e
 
+class QwenAIClient:
+    def __init__(self, model_name, api_key=None):
+        from openai import OpenAI
+        self.client = OpenAI(api_key=api_key,
+                             base_url="https://one-api.s.metames.cn:38443/v1")
+        self.model_name = model_name
+
+    @backoff.on_exception(backoff.expo, Exception, max_tries=3)
+    def create_message(self, system_prompt, messages, max_tokens=1000, temperature=1.0):
+        try:
+            gpt_messages = [
+                {"role": "system", "content": system_prompt}
+            ] + messages
+
+            completion = self.client.chat.completions.create(
+                model=self.model_name,
+                max_tokens=max_tokens,
+                messages=gpt_messages,
+                temperature=temperature
+            )
+
+            return completion.choices[0].message.content
+        except Exception as e:
+            print(f"Error occurred: {e}, retrying...")
+            raise e
 
 class LLMSemanticChunker(BaseChunker):
     """
@@ -72,8 +97,12 @@ class LLMSemanticChunker(BaseChunker):
             if model_name is None:
                 model_name = "claude-3-5-sonnet-20240620"
             self.client = AnthropicClient(model_name, api_key=api_key)
+        elif organisation == "qwen":
+            if model_name is None:
+                model_name = "Qwen2-72B-Instruct-GPTQ-Int8"
+            self.client = QwenAIClient(model_name, api_key=api_key)
         else:
-            raise ValueError("Invalid organisation. Please choose either 'openai' or 'anthropic'.")
+            raise ValueError("Invalid organisation. Please choose either 'openai' or 'anthropic' or 'qwen'.")
 
         self.splitter = RecursiveTokenChunker(
             chunk_size=50,
