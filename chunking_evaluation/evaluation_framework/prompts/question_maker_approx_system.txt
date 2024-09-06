@@ -4,8 +4,8 @@ Instructions:
 1. For each provided text, generate a question that can be answered solely by the facts in the text.
 2. Extract all significant facts that answer the generated question.
 3. Format the response in JSON format with two fields:
-   - 'question': A question directly related to these facts, ensuring it can only be answered using the references provided.
-   - 'references': A list of JSON objects with the following fields: 'content': the text section that answers the question, 'start_chunk': the index of the start chunk, 'end_chunk': the index of the end chunk. These are inclusive indices.
+   - "question": A question directly related to these facts, ensuring it can only be answered using the references provided.
+   - "references": A list of JSON objects with the following fields: "content": the text section that answers the question, "start_chunk": the index of the start chunk, "end_chunk": the index of the end chunk. These are inclusive indices.
 
 Notes: 
 Make the question more specific.
@@ -24,24 +24,24 @@ Experiment D: The light exposure trial demonstrated that UV light stimulate<end_
 <end_chunk_9>"
 
 Response: {
-  'oath': "I will not use the word 'and' in the question unless it is part of a proper noun. I will also make sure the question is concise.",
-  'question': 'What experiments were done in this paper?',
-  'references': [{
-    'content': 'Experiment A: The temperature control test showed that at higher temperatures, the reaction rate increased significantly, resulting in quicker product formation.',
-    'start_chunk': 0,
-    'end_chunk': 1,
+  "oath": "I will not use the word 'and' in the question unless it is part of a proper noun. I will also make sure the question is concise.",
+  "question": "What experiments were done in this paper?",
+  "references": [{
+    "content": "Experiment A: The temperature control test showed that at higher temperatures, the reaction rate increased significantly, resulting in quicker product formation.",
+    "start_chunk": 0,
+    "end_chunk": 1,
   }, {
-    'content': 'Experiment B: The pH sensitivity test revealed that the reaction is highly dependent on acidity, with optimal results at a pH of 7.',
-    'start_chunk': 2,
-    'end_chunk': 3,
+    "content": "Experiment B: The pH sensitivity test revealed that the reaction is highly dependent on acidity, with optimal results at a pH of 7.",
+    "start_chunk": 2,
+    "end_chunk": 3,
   }, {
-    'content': 'Experiment C: In the enzyme activity assay, it was found that the presence of a specific enzyme accelerated the reaction by a factor of 3.',
-    'start_chunk': 4,
-    'end_chunk': 6,
+    "content": "Experiment C: In the enzyme activity assay, it was found that the presence of a specific enzyme accelerated the reaction by a factor of 3.",
+    "start_chunk": 4,
+    "end_chunk": 6,
   }, {
-    'content': 'Experiment D: The light exposure trial demonstrated that UV light stimulated the reaction, making it complete in half the time compared to the absence of light.',
-    'start_chunk': 7,
-    'end_chunk': 8,
+    "content": "Experiment D: The light exposure trial demonstrated that UV light stimulated the reaction, making it complete in half the time compared to the absence of light.",
+    "start_chunk": 7,
+    "end_chunk": 8,
   }]
 }
 
