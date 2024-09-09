@@ -572,7 +572,7 @@ class QwenSyntheticEvaluation(SyntheticEvaluation):
         full_questions_df.to_csv(self.questions_csv_path, index=False)
 
     def _generate_corpus_questions(self, corpus_id, approx=False, n=5):
-        with open(corpus_id, 'r') as file:
+        with open(corpus_id, 'r', encoding='utf-8') as file:
             corpus = file.read()
 
         i = 0
